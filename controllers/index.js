@@ -22,13 +22,13 @@ const responseGenerator = (url, n) => ({
 module.exports = {
   async postController(req, res) {
     try {
-      const { url_input } = req.body;
-      const page = await Url.findOne({ destination: url_input });
+      const { url } = req.body;
+      const page = await Url.findOne({ destination: url });
       if (page)
         return res.json(responseGenerator(page.destination, page.number));
 
       const newPage = new Url({
-        destination: url_input,
+        destination: url,
         number: await getNextValue(),
       });
 
